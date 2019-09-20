@@ -1,0 +1,26 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/homepage/homepage",
+    "pages/personalcenter/personalcenter",
+    "pages/message/message",
+    "pages/classification/classification",
+    "pages/commiteticket/commiteticket"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarBackgroundColor": "#0081ff",
+    "navigationBarTitleText": "互利",
+    "navigationStyle": "custom",
+    "navigationBarTextStyle": "white"
+  },
+  "permission": {},
+  "usingComponents": {
+    "classification": "/pages/classification/classification",
+    "homepage": "/pages/homepage/homepage",
+    "message": "/pages/message/message",
+    "personalcenter": "/pages/personalcenter/personalcenter",
+    "cu-custom": "/colorui/components/cu-custom"
+  },
+  "sitemapLocation": "sitemap85.json"
+}

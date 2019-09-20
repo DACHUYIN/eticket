@@ -1,0 +1,1 @@
+<view><cu-custom vue-id="1" bgColor="bg-gradual-green" bind:__l="__l" vue-slots="{{['content']}}"><view slot="content"><text class="text-xl">首页</text></view></cu-custom></view>
