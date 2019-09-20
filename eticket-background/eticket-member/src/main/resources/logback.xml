@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<appender name="RollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>ERROR</level>
+			<OnMatch>DENY</OnMatch>
+			<OnMismatch>ACCEPT</OnMismatch>
+		</filter>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- <fileNamePattern>/applog/eticket-member/eticket-member-%d{yyyy-MM-dd}.%i.log</fileNamePattern> -->
+			<fileNamePattern>D://applog/eticket-member/eticket-member-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+			<MaxHistory>10</MaxHistory>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>15MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss}|%thread|%-5level|%logger{80}|%method|%line -> %msg%n</pattern>
+            <charset>UTF-8</charset> 
+		</encoder>
+	</appender>
+	
+	<appender name="RollingFile-Error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <OnMatch>ACCEPT</OnMatch>
+            <OnMismatch>DENY</OnMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- <FileNamePattern>/applog/eticket-member/eticket-member-error-%d{yyyy-MM-dd}.%i.log</FileNamePattern> -->
+            <FileNamePattern>D://applog/eticket-member/eticket-member-error-%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+            <MaxHistory>10</MaxHistory>
+            <TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <MaxFileSize>15MB</MaxFileSize>
+            </TimeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss}|%thread|%-5level|%logger{80}|%method|%line -> %msg%n</pattern>
+            <charset>UTF-8</charset> 
+        </encoder>
+    </appender>
+	
+	<appender name="LogPlatformFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>ERROR</level>
+			<OnMatch>DENY</OnMatch>
+			<OnMismatch>ACCEPT</OnMismatch>
+		</filter>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- <fileNamePattern>/applog/eticket-member/eticket-member-platform-%d{yyyy-MM-dd}.%i.log</fileNamePattern> -->
+			<fileNamePattern>D://applog/eticket-member/eticket-member-platform-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+			<MaxHistory>10</MaxHistory>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>15MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss}|%msg%n</pattern>
+            <charset>UTF-8</charset>
+		</encoder>
+	</appender>
+    
+	<root level="INFO">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="RollingFile" />
+		<appender-ref ref="RollingFile-Error" />
+		<appender-ref ref="LogPlatformFile" />
+	</root>
+
+	<logger name="com.wechatapp.eticket.member.log" level="INFO" additivity="false">
+        <appender-ref ref="LogPlatformFile" />  
+    </logger>
+
+</configuration>

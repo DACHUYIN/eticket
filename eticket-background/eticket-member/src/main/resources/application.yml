@@ -1,0 +1,128 @@
+server:
+  port: 6076
+  tomcat:
+    uri-encoding: UTF-8
+      
+eureka:
+  client:
+    service-url:
+      # 指定eureka server通信地址，注意/eureka/小尾巴不能少
+      defaultZone: http://34.85.89.243:8761/eureka/
+  instance:
+    # 是否注册IP到eureka server，如不指定或设为false，那就会注册主机名到eureka server
+    prefer-ip-address: true
+    # 指定此实例的ip，并且生产环境才打开
+    #ip-address: 13.251.156.26 
+    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
+  
+spring:
+  application:
+    # 指定注册到eureka server上的服务名称
+    name: eticket-member-localhost
+    #name: eticket-member
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  redis:
+    timeout: 6000ms  # 连接超时时长（毫秒）
+    cluster:
+      nodes: 13.251.106.34:7001,13.251.106.34:7002,13.229.123.46:7001,13.229.123.46:7002,13.251.156.26:7001,13.251.156.26:7002
+    password: 2mfdz9XU
+    jedis:
+      pool:
+        max-wait: -1ms # 使用负数表示没有限制
+        max-active: 50
+        max-idle: 50
+        min-idle: 20    
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+        hbm2ddl: 
+          auto: none
+  cloud:
+    stream:
+      rocketmq:
+        binder:
+          name-server: 39.100.226.179:9876,39.100.78.47:9876
+      bindings:
+        input:
+          destination: add-creditpoint
+          group: add-creditpoint-group
+sharding:
+  jdbc:
+    datasource:
+      names: ds0,ds1
+      ds0:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://52.187.35.91:3306/eticket?characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2b8
+        username: ENC(JN+Kxc3lOj0ykria76Tkbg==)
+        password: ENC(Gl32I9uFeFGmIRPPaL5spx81yescTvNy)
+        filters: config
+        initial-size: 5
+        min-idle: 5
+        max-active: 20
+      ds1:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://13.229.123.46:3306/eticket?characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2b8
+        username: ENC(gf2YYZIGZ6bUpRzqoF7e0w==)
+        password: ENC(Gl32I9uFeFGmIRPPaL5spx81yescTvNy)
+        filters: config
+        initial-size: 5
+        min-idle: 5
+        max-active: 20
+    config:
+      sharding:
+        default-data-source-name: ds0
+        default-database-strategy:
+          inline:
+            sharding-column: telephone_number
+            algorithm-expression: ds$->{Integer.valueOf(com.wechatapp.eticket.core.common.util.ShardingUtils.lastCharactorOf(telephone_number)) % 2}
+        tables:
+          eticket_order:
+            actual-data-nodes: ds$->{0..1}.eticket_order
+            table-strategy:
+              inline:
+                sharding-column: telephone_number
+                algorithm-expression: eticket_order
+          eticket_member:
+            actual-data-nodes: ds$->{0..1}.eticket_member
+            table-strategy:
+              inline:
+                sharding-column: telephone_number
+                algorithm-expression: eticket_member
+          eticket_foodticket:
+            actual-data-nodes: ds$->{0..1}.eticket_foodticket
+            table-strategy:
+              inline:
+                sharding-column: telephone_number
+                algorithm-expression: eticket_foodticket
+          eticket_entertainmentticket:
+            actual-data-nodes: ds$->{0..1}.eticket_entertainmentticket
+            table-strategy:
+              inline:
+                sharding-column: telephone_number
+                algorithm-expression: eticket_entertainmentticket
+          eticket_admissionticket:
+            actual-data-nodes: ds$->{0..1}.eticket_admissionticket
+            table-strategy:
+              inline:
+                sharding-column: telephone_number
+                algorithm-expression: eticket_admissionticket
+          eticket_showticket:
+            actual-data-nodes: ds$->{0..1}.eticket_showticket
+            table-strategy:
+              inline:
+                sharding-column: telephone_number
+                algorithm-expression: eticket_showticket      
+
+jasypt:
+  encryptor:
+    password: zx    #解密的密匙
+
+ 
+#swagger:   自动生成API文档的注释
+#  enabled: true    
