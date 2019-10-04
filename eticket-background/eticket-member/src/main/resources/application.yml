@@ -3,18 +3,26 @@ server:
   tomcat:
     uri-encoding: UTF-8
       
+#eureka:
+  #client:
+    #service-url:
+      # 指定eureka server通信地址，注意/eureka/小尾巴不能少
+      #defaultZone: http://34.85.89.243:8761/eureka/
+  #instance:
+    # 是否注册IP到eureka server，如不指定或设为false，那就会注册主机名到eureka server
+    #prefer-ip-address: true
+    # 指定此实例的ip，并且生产环境才打开
+    #ip-address: 13.251.156.26 
+    #instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
 eureka:
   client:
     service-url:
       # 指定eureka server通信地址，注意/eureka/小尾巴不能少
-      defaultZone: http://34.85.89.243:8761/eureka/
+      defaultZone: http://localhost:8761/eureka/
   instance:
     # 是否注册IP到eureka server，如不指定或设为false，那就会注册主机名到eureka server
     prefer-ip-address: true
-    # 指定此实例的ip，并且生产环境才打开
-    #ip-address: 13.251.156.26 
-    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
-  
+
 spring:
   application:
     # 指定注册到eureka server上的服务名称
@@ -26,7 +34,7 @@ spring:
   redis:
     timeout: 6000ms  # 连接超时时长（毫秒）
     cluster:
-      nodes: 13.251.106.34:7001,13.251.106.34:7002,13.229.123.46:7001,13.229.123.46:7002,13.251.156.26:7001,13.251.156.26:7002
+      nodes: 13.251.106.34:7001,13.251.106.34:7002,13.229.123.46:7001,13.229.123.46:7002,52.221.205.25:7001,52.221.205.25:7002
     password: 2mfdz9XU
     jedis:
       pool:
@@ -45,11 +53,16 @@ spring:
     stream:
       rocketmq:
         binder:
-          name-server: 39.100.226.179:9876,39.100.78.47:9876
+          name-server: 39.100.226.179:9876;39.100.78.47:9876
       bindings:
-        input:
-          destination: add-creditpoint
-          group: add-creditpoint-group
+        input-insert:
+          destination: insert-eticketinfo
+          group: insert-eticketinfo-group
+          contentType: application/json
+        input-update:
+          destination: update-eticketinfo
+          group: update-eticketinfo-group
+          contentType: application/json
 sharding:
   jdbc:
     datasource:
@@ -88,6 +101,12 @@ sharding:
               inline:
                 sharding-column: telephone_number
                 algorithm-expression: eticket_order
+          eticket_payment:
+            actual-data-nodes: ds$->{0..1}.eticket_payment
+            table-strategy:
+              inline:
+                sharding-column: telephone_number
+                algorithm-expression: eticket_payment
           eticket_member:
             actual-data-nodes: ds$->{0..1}.eticket_member
             table-strategy:

@@ -14,15 +14,15 @@ public class TicketTypeEntity extends BaseEntity {
 
 	// 种类编号
 	@Id
-	@Column(name = "type_id")
-	private Long typeId;
+	@Column(name = "ticket_type_id")
+	private Long ticketTypeId;
 
 	// 票务种类
 	@Column(name = "ticket_type")
 	@Enumerated(EnumType.STRING)
 	private TicketTypeEnum ticketType;
 	
-	// 种类名称
-	@Column(name = "type_name")
-	private String typeName;
+	// 票务名称
+	@Column(name = "ticket_name")
+	private String ticketName;
 }

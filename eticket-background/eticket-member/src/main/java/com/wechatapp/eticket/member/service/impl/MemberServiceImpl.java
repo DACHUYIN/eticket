@@ -104,8 +104,8 @@ public class MemberServiceImpl implements IMemberService {
 	/**
 	 * 更新已经登录用户的token，并延长登录用户的登录有效期
 	 *
-	 * @param userInfoDTO
-	 * @return
+	 * @param wechatOpenId
+	 * @return LoginResponseDTO
 	 * @throws WxErrorException
 	 */
 	@Override

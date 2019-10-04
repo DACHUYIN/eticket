@@ -1,5 +1,6 @@
 package com.wechatapp.eticket.transaction.dto;
 
+import com.wechatapp.eticket.core.dto.EticketInfoDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,6 +17,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class TransactionResponseDTO {
+
+    /**
+     * 图片保存路径
+     */
+    private String imgAddress;
 
     /**
      * 返回的代码

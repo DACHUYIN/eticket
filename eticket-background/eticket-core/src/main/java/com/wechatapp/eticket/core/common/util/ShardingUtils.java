@@ -6,7 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 
 /**
    * 分库工具
- * @author MSI
+ * @author virgo.zx
  *  
  */
 public class ShardingUtils {

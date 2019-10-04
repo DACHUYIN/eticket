@@ -3,27 +3,23 @@ package com.wechatapp.eticket.core.entity;
 import com.wechatapp.eticket.core.enums.OrderStatusEnum;
 import com.wechatapp.eticket.core.enums.OrderTypeEnum;
 import com.wechatapp.eticket.core.enums.TicketTypeEnum;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import java.math.BigDecimal;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Data
 @Entity
 @Table(name = "eticket_order")
 @EqualsAndHashCode(callSuper = false)
 @IdClass(OrderEntityPK.class)
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class OrderEntity extends BaseEntity {
 
-	// 分库主键
+	// 主键---也用于分库分表
 	@Id
 	@Column(name = "sharding_id")
 	private String shardingId;
@@ -33,14 +29,22 @@ public class OrderEntity extends BaseEntity {
 	@Column(name = "order_id")
 	private Long orderId;
 
-	// 手机号码
+	// 手机号码---ymp分库分表中用这列进行的
 	@Column(name = "telephone_number")
 	private String telephoneNumber;
 
-	// 微信标识
-	@Column(name = "wechat_openid")
-	private String wechatOpenId;
-	
+	// redis中的交易主键
+	@Column(name = "redis_map_key")
+	private String redisMapKey;
+
+	// 微信标识-买家
+	@Column(name = "wechat_openid_buyer")
+	private String wechatOpenIdBuyer;
+
+	// 微信标识-卖家
+	@Column(name = "wechat_openid_seller")
+	private String wechatOpenIdSeller;
+
 	// 订单类型
 	@Column(name = "order_type")
 	@Enumerated(EnumType.STRING)
@@ -57,8 +61,8 @@ public class OrderEntity extends BaseEntity {
 	private TicketTypeEnum ticketType;
 
 	// 种类名称
-	@Column(name = "type_name")
-	private String typeName;
+	@Column(name = "ticket_name")
+	private String ticketName;
 
 	// 券码的真正价格
 	@Column(name = "price")

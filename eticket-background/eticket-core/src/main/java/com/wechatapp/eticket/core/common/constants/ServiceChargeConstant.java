@@ -2,6 +2,9 @@ package com.wechatapp.eticket.core.common.constants;
 
 import java.math.BigDecimal;
 
+/**
+ * 根剧价格所处的区间不一样，手续费的价格也不一样
+ */
 public class ServiceChargeConstant {
 
 	private ServiceChargeConstant() {

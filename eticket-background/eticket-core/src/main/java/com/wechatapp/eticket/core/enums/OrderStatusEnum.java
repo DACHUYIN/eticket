@@ -12,7 +12,7 @@ package com.wechatapp.eticket.core.enums;
 public enum OrderStatusEnum {
 
     BUYING(0, "求购中"), SELLING(1, "出售中"), DEALING(2, "交易中"),
-    COMPLETING(3, "完成"), CLOSING(4, "已关闭");
+    COMPLETED(3, "已完成"), CLOSED(4, "已关闭");
 
     private Byte value;
     private String description;

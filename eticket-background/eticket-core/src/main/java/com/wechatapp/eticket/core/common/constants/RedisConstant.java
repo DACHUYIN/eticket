@@ -6,6 +6,26 @@ public class RedisConstant {
 	}
 
 	/**
+	 * 会员redis数据
+	 */
+	public static final String REDIS_MEMBER = "Member:";
+
+	/**
+	 * 交易redis数据
+	 */
+	public static final String REDIS_TRANSACTION = "Transaction:";
+
+	/**
+	 * RocketMQ日志redis数据
+	 */
+	public static final String REDIS_ROCKETMQLOG = "RocketMQLog:";
+
+	/**
+	 * RocketMQ日志消息
+	 */
+	public static final String REDIS_ROCKETMQMESSAGE = "RocketMQMessage";
+
+	/**
 	 * 微信OpenId
 	 */
 	public static final String REDIS_WECHATOPENID = "wechatOpenId";

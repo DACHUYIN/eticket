@@ -23,6 +23,9 @@ import java.util.Map;
 @Slf4j
 public class JwtOperatorUtils {
 
+    private JwtOperatorUtils() {
+    }
+
     /**
      * 从token中获取claim
      *

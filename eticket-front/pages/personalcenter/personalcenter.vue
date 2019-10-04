@@ -163,7 +163,7 @@
 				if (nowLoginTime > new Date(nextDayLoginTime)) {
 					console.log('距离上次用户登录已过7天，重置用户的token以延长用户的登录时效');
 					uni.request({
-						url: UPDATE_LOGIN_USER,
+						url: UPDATE_LOGIN_USER_URL,
 						method: 'POST',
 						data: {
 							'wechatOpenId': wechatOpenId
@@ -174,7 +174,7 @@
 						},
 						success: (res) => {
 							let resData = res.data;
-							if (resData.responseCode == '100') {
+							if (resData.responseCode === '100') {
 								uni.setStorageSync('token', resData.token);
 								uni.setStorageSync('user', resData.userInfoDTO);
 								uni.setStorageSync('latestLoginTime', new Date());

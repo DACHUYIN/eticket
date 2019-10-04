@@ -1,7 +1,6 @@
 package com.wechatapp.eticket.core.entity;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import com.wechatapp.eticket.core.enums.PaymentStatusEnum;
 
@@ -20,6 +19,9 @@ import javax.persistence.Table;
 @Table(name = "eticket_payment")
 @EqualsAndHashCode(callSuper = false)
 @IdClass(PaymentEntityPK.class)
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class PaymentEntity extends BaseEntity {
 	
 	// 分库主键
@@ -32,17 +34,21 @@ public class PaymentEntity extends BaseEntity {
 	@Column(name = "payment_id")
 	private Long paymentId;
 
-	// 手机号码
-	@Column(name = "telephone_number")
-	private String telephoneNumber;
-
-	// 微信标识
-	@Column(name = "wechat_openid")
-	private String wechatOpenId;
-	
 	// 订单编号
 	@Column(name = "order_id")
 	private Long orderId;
+
+	// 手机号码---ymp分库分表中用这列进行的
+	@Column(name = "telephone_number")
+	private String telephoneNumber;
+
+	// 微信标识-买家
+	@Column(name = "wechat_openid_buyer")
+	private String wechatOpenIdBuyer;
+
+	// 微信标识-卖家
+	@Column(name = "wechat_openid_seller")
+	private String wechatOpenIdSeller;
 
 	// 券码的真正价格
 	@Column(name = "price")

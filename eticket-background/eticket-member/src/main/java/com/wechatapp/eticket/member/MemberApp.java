@@ -1,5 +1,7 @@
 package com.wechatapp.eticket.member;
 
+import com.wechatapp.eticket.member.rocketmqsink.InsertEticketInfoSink;
+import com.wechatapp.eticket.member.rocketmqsink.UpdateEticketInfoSink;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -21,7 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 @EntityScan(basePackages = "com.wechatapp.eticket.core.entity")
 @EnableJpaRepositories(basePackages = "com.wechatapp.eticket.core.repository")
 @SpringBootApplication(scanBasePackages = "com.wechatapp.eticket")
-@EnableBinding({Sink.class})
+@EnableBinding({InsertEticketInfoSink.class, UpdateEticketInfoSink.class})
 public class MemberApp 
 {
 	public static void main(String[] args) {

@@ -1,10 +1,10 @@
 package com.wechatapp.eticket.member.service;
 
-import java.util.List;
-
-import com.wechatapp.eticket.core.entity.OrderEntity;
+import com.wechatapp.eticket.core.dto.EticketInfoDTO;
 
 public interface IOrderService {
 
-	List<OrderEntity> getOrderInfo(String telephoneNumber);
+	void insertEticketInfo(EticketInfoDTO eticketInfo);
+
+	void updateEticketInfo(EticketInfoDTO eticketInfo);
 }

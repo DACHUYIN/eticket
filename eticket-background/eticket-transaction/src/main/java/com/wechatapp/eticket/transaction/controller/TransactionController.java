@@ -2,7 +2,7 @@ package com.wechatapp.eticket.transaction.controller;
 
 import com.wechatapp.eticket.core.annotation.CheckLogin;
 import com.wechatapp.eticket.core.common.constants.ResponseMsgConstant;
-import com.wechatapp.eticket.transaction.dto.EticketInfoDTO;
+import com.wechatapp.eticket.core.dto.EticketInfoDTO;
 import com.wechatapp.eticket.transaction.dto.TransactionResponseDTO;
 import com.wechatapp.eticket.transaction.service.ITransactionService;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.math.BigDecimal;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,8 +27,9 @@ public class TransactionController {
 
 	/**
 	 * 上传图片至服务器
-	 * 
-	 * @param eticketInfoDTO
+	 *
+	 * @param file
+	 * @param file
 	 * @return
 	 */
 	@PostMapping("/uploadFile")
@@ -45,34 +45,24 @@ public class TransactionController {
 			return transactionService.uploadFile(wechatOpenId, ticketType, file);
 		} else {
 			log.error("上传图片失败");
-			return TransactionResponseDTO.builder().responseCode(ResponseMsgConstant.RESPONSEMSG_FAIL_UPLOAD_FILE)
-					.responseMsg(ResponseMsgConstant.RESPONSEMSG_FAIL_UPLOAD_FILE).build();
+			return TransactionResponseDTO.builder()
+					.responseCode(ResponseMsgConstant.RESPONSECODE_FAIL_UPLOAD_FILE)
+					.responseMsg(ResponseMsgConstant.RESPONSEMSG_FAIL_UPLOAD_FILE)
+					.build();
 		}
 	}
 
 	/**
 	 * 提交电子票券
-	 * 
-	 * @param userId
+	 *
 	 * @param eticketInfoDTO
 	 * @return
 	 */
 	@PostMapping("/submitEticket")
-	public Map<String, Object> submitEticket(@RequestBody EticketInfoDTO eticketInfoDTO) {
-
-		return null;
-	}
-
-	/**
-	 * 获得电子票券的最终价格
-	 * 
-	 * @param eticketInfoDTO
-	 * @return
-	 */
-	@PostMapping("/getLastprice")
-	public BigDecimal getLastPrice(@RequestBody EticketInfoDTO eticketInfoDTO) {
-		BigDecimal totalPrice = transactionService.getLastPrice(eticketInfoDTO);
-		return totalPrice;
+	@CheckLogin
+	public TransactionResponseDTO submitEticket(@RequestBody EticketInfoDTO eticketInfoDTO) {
+		TransactionResponseDTO dto = transactionService.submitEticket(eticketInfoDTO);
+		return dto;
 	}
 
 	/**

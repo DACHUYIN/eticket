@@ -1,7 +1,6 @@
 package com.wechatapp.eticket.core.entity;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,7 +15,10 @@ import java.util.Date;
  *
  */
 @Data
+@Builder
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "eticket_foodticket")
 @EqualsAndHashCode(callSuper = false)
 public class FoodTicketEntity extends BaseEntity {
@@ -26,7 +28,7 @@ public class FoodTicketEntity extends BaseEntity {
 	@Column(name = "sharding_id")
 	private String shardingId;
 
-	// 手机号码
+	// 手机号码---ymp分库分表中用这列进行的
 	@Column(name = "telephone_number")
 	private String telephoneNumber;
 
@@ -34,13 +36,9 @@ public class FoodTicketEntity extends BaseEntity {
 	@Column(name = "order_id")
 	private Long orderId;
 
-	// 支付编号
-	@Column(name = "payment_id")
-	private Long paymentId;
-	
 	// 种类编号
-	@Column(name = "type_id")
-	private Long typeId;
+	@Column(name = "ticket_name")
+	private String ticketName;
 	
 	// 券码的真正价格
 	@Column(name = "price")
@@ -54,9 +52,9 @@ public class FoodTicketEntity extends BaseEntity {
 	@Column(name = "total_price")
 	private BigDecimal totalPrice;
 	
-	// 是否需要上传二维码
+	// 是否需要上传二维码--- 1:表示上传，-1：表示不上传
 	@Column(name = "upload_flag")
-	private Boolean uploadFlag;
+	private String uploadFlag;
 	
 	// 订单图片地址
 	@Column(name = "img_address")
@@ -77,8 +75,4 @@ public class FoodTicketEntity extends BaseEntity {
 	// 券码有效天数
 	@Column(name = "term_validity")
 	private Integer termValidity;
-	
-	// 出售或者求购  0:表示出售  1：表示求购
-	@Column(name = "sale_or_buy_flag")
-	private String saleOrBuyFlag;
 }

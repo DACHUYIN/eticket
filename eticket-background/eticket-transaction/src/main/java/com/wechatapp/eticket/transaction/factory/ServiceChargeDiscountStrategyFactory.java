@@ -16,6 +16,7 @@ import java.util.Map;
  *
  */
 public class ServiceChargeDiscountStrategyFactory {
+
     private static ServiceChargeDiscountStrategyFactory factory = new ServiceChargeDiscountStrategyFactory();
     private ServiceChargeDiscountStrategyFactory() {
     }

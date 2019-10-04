@@ -9,7 +9,6 @@ import me.chanjar.weixin.common.error.WxErrorException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-
 @RestController
 @RequestMapping("/member")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
@@ -39,5 +38,4 @@ public class MemberController {
     public LoginResponseDTO updateLoginUserInfo(@RequestParam("wechatOpenId") String wechatOpenId) throws WxErrorException {
         return memberService.updateLoginUserInfo(wechatOpenId);
     }
-
 }

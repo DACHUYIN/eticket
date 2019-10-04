@@ -27,7 +27,7 @@ public class EntertainmentTicketEntity extends BaseEntity {
 	@Column(name = "sharding_id")
 	private String shardingId;
 
-	// 手机号码
+	// 手机号码---ymp分库分表中用这列进行的
 	@Column(name = "telephone_number")
 	private String telephoneNumber;
 
@@ -35,13 +35,9 @@ public class EntertainmentTicketEntity extends BaseEntity {
 	@Column(name = "order_id")
 	private Long orderId;
 
-	// 支付编号
-	@Column(name = "payment_id")
-	private Long paymentId;
-
 	// 种类编号
-	@Column(name = "type_id")
-	private Long typeId;
+	@Column(name = "ticket_name")
+	private Long ticketName;
 
 	// 券码的真正价格
 	@Column(name = "price")
@@ -55,9 +51,9 @@ public class EntertainmentTicketEntity extends BaseEntity {
 	@Column(name = "total_price")
 	private BigDecimal totalPrice;
 
-	// 是否需要上传二维码
+	// 是否需要上传二维码--- 1:表示上传，-1：表示不上传
 	@Column(name = "upload_flag")
-	private Boolean uploadFlag;
+	private String uploadFlag;
 
 	// 订单图片地址
 	@Column(name = "img_address")
@@ -78,8 +74,4 @@ public class EntertainmentTicketEntity extends BaseEntity {
 	// 券码有效天数
 	@Column(name = "term_validity")
 	private int termValidity;
-
-	// 出售或者求购  0:表示出售  1：表示求购
-	@Column(name = "sale_or_buy_flag")
-	private String saleOrBuyFlag;
 }

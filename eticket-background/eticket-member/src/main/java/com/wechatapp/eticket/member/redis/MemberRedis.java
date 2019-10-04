@@ -35,12 +35,10 @@ public class MemberRedis {
 
 	private final StringRedisTemplate stringRedisTemplate;
 
-
 	/**
 	 * 查询用户是否处于登录状态
 	 * 
 	 * @param wechatOpenId
-	 * @param userInfoDTO
 	 * @return
 	 */
 	public LoginResponseDTO updateLoginInfo(String wechatOpenId) {
@@ -108,8 +106,8 @@ public class MemberRedis {
 		redisMap.put(RedisConstant.REDIS_LATESTLOGINTIME, DateFormatUtils.YYYY_MM_DD_HH_MM_SS.get().format(new Date()));
 		redisMap.put(RedisConstant.REDIS_TELEPHONENUMBER, telephoneNumber);
 		redisMap.put(RedisConstant.REDIS_TOKEN, token);
-		log.info("存储到Redis中的该用户ID为：" +wchatOpenId);
-		stringRedisTemplate.opsForHash().putAll(wchatOpenId, redisMap);
+		log.info("存储到Redis中的该用户ID为：" + wchatOpenId);
+		stringRedisTemplate.opsForHash().putAll(RedisConstant.REDIS_MEMBER + wchatOpenId, redisMap);
 		// 设置过期时间，和token的过期时间保持一致，都是2周
 		stringRedisTemplate.expire(wchatOpenId, JwtConstant.EXPIRATION_TIME_IN_SECOND, TimeUnit.SECONDS);
 	}

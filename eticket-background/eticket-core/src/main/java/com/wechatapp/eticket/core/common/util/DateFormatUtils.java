@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat;
 
 /**
  * 时间格式化工具
- * @author MSI
+ * @author virgo.zx
  *
  */
 public class DateFormatUtils {

@@ -36,9 +36,17 @@
 				this.pageCur = e.currentTarget.dataset.cur;
 			},
 			CommitEticket: function(e) {
-				uni.navigateTo({
-					url: '../commiteticket/commiteticket'
-				})
+				let user = uni.getStorageSync('user');
+				if (user) {
+					uni.navigateTo({
+						url: '../commiteticket/commiteticket'
+					});
+				} else {
+				    uni.showModal({
+				    	content: '请登录后使用该功能~',
+				    	showCancel: false
+				    });	
+				}
 			}
 		}
 	}

@@ -3,17 +3,25 @@ server:
   tomcat:
     uri-encoding: UTF-8
 
+#eureka:
+  #client:
+    #service-url:
+      # 指定eureka server通信地址，注意/eureka/小尾巴不能少
+      #defaultZone: http://34.85.89.243:8761/eureka/
+  #instance:
+    # 是否注册IP到eureka server，如不指定或设为false，那就会注册主机名到eureka server
+    #prefer-ip-address: true
+    # 指定此实例的ip，并且生产环境才打卡
+    # ip-address: 13.251.156.26 
+    #instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
 eureka:
   client:
     service-url:
       # 指定eureka server通信地址，注意/eureka/小尾巴不能少
-      defaultZone: http://34.85.89.243:8761/eureka/
+      defaultZone: http://localhost:8761/eureka/
   instance:
     # 是否注册IP到eureka server，如不指定或设为false，那就会注册主机名到eureka server
     prefer-ip-address: true
-    # 指定此实例的ip，并且生产环境才打卡
-    # ip-address: 13.251.156.26 
-    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
 
 spring:
   application:
@@ -25,7 +33,7 @@ spring:
   redis:
     timeout: 6000ms  # 连接超时时长（毫秒）
     cluster:
-      nodes: 13.251.106.34:7001,13.251.106.34:7002,13.229.123.46:7001,13.229.123.46:7002,13.251.156.26:7001,13.251.156.26:7002
+      nodes: 13.251.106.34:7001,13.251.106.34:7002,13.229.123.46:7001,13.229.123.46:7002,52.221.205.25:7001,52.221.205.25:7002
     password: 2mfdz9XU
     jedis:
       pool:
@@ -44,16 +52,24 @@ spring:
     stream:
       rocketmq:
         binder:
-          name-server: 39.100.226.179:9876,39.100.78.47:9876
-        bindings: 
-          output:
+          name-server: 39.100.226.179:9876;39.100.78.47:9876
+        bindings:
+          output-insert:
             producer:
+              group: tx-insert-eticketinfo-group # 用来做分布式事务，监听Listener里面的代码
               transactional: true
-              group: tx-add-creditpoint-group
+          output-update:
+            producer:
+              group: tx-update-eticketinfo-group
+              transactional: true
       bindings:
-        output:
-          # 用来指定topic
-          destination: add-creditpoint
+          output-insert:
+            destination: insert-eticketinfo # 用来指定topic
+            contentType: application/json
+          output-update:
+            destination: update-eticketinfo
+            contentType: application/json
+
 sharding:
   jdbc:
     datasource:

@@ -10,7 +10,7 @@ package com.wechatapp.eticket.core.enums;
  */
 public enum PaymentStatusEnum {
 
-    VERIFYING(-1, "核查中"),CHECKING(1, "确认中"),SUCCESS(2, "交易成功");
+    VERIFYING(-1, "核查中"), CHECKING(1, "确认中"), SUCCESS(2, "交易成功");
 
     private Byte value;
     private String description;
