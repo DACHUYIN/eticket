@@ -228,8 +228,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
 var _api = __webpack_require__(/*! ../../utils/api.js */ 35);
 
 
@@ -342,10 +340,8 @@ var _calculatePrice = __webpack_require__(/*! ../../utils/calculatePrice.js */ 5
 //
 //
 //
-//
-//
 var _default = { data: function data() {return { index: 0, picker: ['餐饮券', '影音娱乐券', '景点门票', '电影票', '演唱会门票', '展览门票'], radio: 'SELL', // S:出售 B:求购 进入画面出售按钮处于Checked状态
-      startDate: (0, _dateFormat.dateFormat)('YYYY-mm-DD', new Date()), endDate: (0, _dateFormat.dateFormat)('YYYY-mm-DD', new Date(new Date().getTime() + 24 * 60 * 60 * 1000)), imgList: [], ticketType: 'FOOD', ticketName: '', qrCode: '', price: '', totalPrice: '', submitSuccess: '1' };}, methods: { RadioChange: function RadioChange(e) {this.radio = e.detail.value;}, PickerChange: function PickerChange(e) {this.index = e.detail.value;switch (index) {case 0:ticketType = 'FOOD'; // 餐饮券
+      startDate: (0, _dateFormat.dateFormat)('YYYY-mm-DD', new Date()), endDate: (0, _dateFormat.dateFormat)('YYYY-mm-DD', new Date(new Date().getTime() + 24 * 60 * 60 * 1000)), imgList: [], ticketType: 'FOOD', ticketName: '', qrCode: '', price: '', totalPrice: '', submitSuccess: '0' };}, methods: { RadioChange: function RadioChange(e) {this.radio = e.detail.value;}, PickerChange: function PickerChange(e) {this.index = e.detail.value;switch (index) {case 0:ticketType = 'FOOD'; // 餐饮券
           break;case 1:ticketType = 'ENTERTAINMENT'; // 影音娱乐券
           break;case 2:ticketType = 'ADMINSION'; // 景点门票
           break;case 3:ticketType = 'FILM'; // 电影票
@@ -360,72 +356,74 @@ var _default = { data: function data() {return { index: 0, picker: ['餐饮券',
       this.qrCode = e.detail.value.replace(/[^\a-\z\A-\Z0-9]/g, '');return { value: this.qrCode };}, GetTypeName: function GetTypeName(e) {this.ticketName = e.detail.value;}, StartDateChange: function StartDateChange(e) {this.startDate = e.detail.value;}, EndDateChange: function EndDateChange(e) {this.endDate = e.detail.value;}, ChooseImage: function ChooseImage(e) {var _this = this;uni.chooseImage({ count: 4, //默认9
         sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
         sourceType: ['album'], //从相册选择
-        success: function success(res) {var tempFilePaths = res.tempFilePaths;if (_this.imgList.length != 0) {_this.imgList = _this.imgList.concat(tempFilePaths);} else {_this.imgList = tempFilePaths;}} });}, ViewImage: function ViewImage(e) {uni.previewImage({ urls: this.imgList, current: e.currentTarget.dataset.url });}, DelImg: function DelImg(e) {var _this2 = this;uni.showModal({ content: '确定要删除这张二维码截图吗？', confirmText: '确认', cancelText: '取消', success: function success(res) {if (res.confirm) {_this2.imgList.splice(e.currentTarget.dataset.index, 1);}} });}, CommitEticket: function CommitEticket(e) {
+        success: function success(res) {var tempFilePaths = res.tempFilePaths;if (_this.imgList.length != 0) {_this.imgList = _this.imgList.concat(tempFilePaths);} else {_this.imgList = tempFilePaths;}} });}, ViewImage: function ViewImage(e) {uni.previewImage({ urls: this.imgList, current: e.currentTarget.dataset.url });}, DelImg: function DelImg(e) {var _this2 = this;uni.showModal({ content: '确定要删除这张二维码截图吗？', confirmText: '确认', cancelText: '取消', success: function success(res) {if (res.confirm) {_this2.imgList.splice(e.currentTarget.dataset.index, 1);}} });
+    },
+    CommitEticket: function CommitEticket(e) {var _this3 = this;
       var user = uni.getStorageSync('user');
       var wechatOpenId = user.wechatOpenId;
       var telephoneNumber = user.telephoneNumber;
       var count = 0;
       var imgList = this.imgList;
       this.submitSuccess = 1;
-      /* 				for (var i = 0; i < imgList.length; i++) {
-                              					uni.uploadFile({
-                              						url: UPLOAD_FILE_URL,
-                              						filePath: imgList[i],
-                              						name: 'uploadFile',
-                              						formData: {
-                              							'wechatOpenId': wechatOpenId,
-                              							'ticketType': this.ticketType
-                              						},
-                              						header: {
-                              							"Content-Type": "multipart/form-data",
-                              							'X-Token': uni.getStorageSync('token').token
-                              						},
-                              						success: (uploadFileRes) => {
-                              							count++;
-                              							let uploadFileResData = JSON.parse(uploadFileRes.data);
-                              							if (count == imgList.length && uploadFileResData.responseCode === '200') {
-                              								uni.request({
-                              									url: SUBMIT_ETICKET_URL,
-                              									method: 'POST',
-                              									data: {
-                              										'wechatOpenIdSeller': wechatOpenId,
-                              										'telephoneNumber': telephoneNumber,
-                              										'price': this.price,
-                              										'totalPrice': this.totalPrice,
-                              										'imgAddress': uploadFileResData.imgAddress,
-                              										'uploadFlag': 1,
-                              										'qrCode': this.qrCode,
-                              										'startDate': this.startDate,
-                              										'endDate': this.endDate,
-                              										'orderType': this.radio,
-                              										'ticketName': this.ticketName,
-                              										'ticketType': this.ticketType,
-                              										'orderStatus': this.radio === 'SELL' ? '1' : '0', // 订单状态，刚发布完的券码要么是出售中要么是求购中
-                              										'sqlMethod': 1, // 发布券码，即插入操作
-                              									},
-                              									header: {
-                              										'Content-Type': 'application/json',
-                              										'X-Token': uni.getStorageSync('token').token
-                              									},
-                              									success: (res) => {
-                              										let resData = res.data;
-                              										if (resData.responseCode == '300') {
-                                                                          // 券码提交成功
-                              											
-                              										}
-                              									},
-                              								});
-                              							}
-                              						},
-                              						fail: (res) => {
-                              							uni.showModal({
-                              								title: '错误',
-                              								content: '二维码图片上传失败，请再次点击确认发布！',
-                              								showCancel: false
-                              							})
-                              						}
-                              					});
-                              				} */
+      for (var i = 0; i < imgList.length; i++) {
+        uni.uploadFile({
+          url: _api.UPLOAD_FILE_URL,
+          filePath: imgList[i],
+          name: 'uploadFile',
+          formData: {
+            'wechatOpenId': wechatOpenId,
+            'ticketType': this.ticketType },
+
+          header: {
+            "Content-Type": "multipart/form-data",
+            'X-Token': uni.getStorageSync('token').token },
+
+          success: function success(uploadFileRes) {
+            count++;
+            var uploadFileResData = JSON.parse(uploadFileRes.data);
+            if (count == imgList.length && uploadFileResData.responseCode === '200') {
+              uni.request({
+                url: _api.SUBMIT_ETICKET_URL,
+                method: 'POST',
+                data: {
+                  'wechatOpenIdSeller': wechatOpenId,
+                  'telephoneNumber': telephoneNumber,
+                  'price': _this3.price,
+                  'totalPrice': _this3.totalPrice,
+                  'imgAddress': uploadFileResData.imgAddress,
+                  'uploadFlag': 1,
+                  'qrCode': _this3.qrCode,
+                  'startDate': _this3.startDate,
+                  'endDate': _this3.endDate,
+                  'orderType': _this3.radio,
+                  'ticketName': _this3.ticketName,
+                  'ticketType': _this3.ticketType,
+                  'orderStatus': _this3.radio === 'SELL' ? '1' : '0', // 订单状态，刚发布完的券码要么是出售中要么是求购中
+                  'sqlMethod': 1 // 发布券码，即插入操作
+                },
+                header: {
+                  'Content-Type': 'application/json',
+                  'X-Token': uni.getStorageSync('token').token },
+
+                success: function success(res) {
+                  var resData = res.data;
+                  if (resData.responseCode == '300') {
+                    // 券码提交成功
+
+                  }
+                } });
+
+            }
+          },
+          fail: function fail(res) {
+            uni.showModal({
+              title: '错误',
+              content: '二维码图片上传失败，请再次点击确认发布！',
+              showCancel: false });
+
+          } });
+
+      }
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

@@ -94,12 +94,10 @@
 				</view>
 				<text class="text-black text-lg">券码提交成功～</text>
 			</view>
-			<view class="location1">
-				<view class="location2">
-					<navigator url="../index/index">
-						<text class="text-blue text-lg text-center">返回首页</text>
-					</navigator>
-				</view>
+			<view class="flex flex-direction text-center text-center" style="margin-top: 600upx;">
+				<navigator url="../index/index">
+					<text class="text-blue text-lg">返回首页</text>
+				</navigator>
 			</view>
 		</view>
 	</view>
@@ -130,7 +128,7 @@
 				qrCode: '',
 				price: '',
 				totalPrice: '',
-				submitSuccess: '1'
+				submitSuccess: '0'
 			}
 		},
 		methods: {
@@ -243,80 +241,71 @@
 				var count = 0;
 				var imgList = this.imgList;
 				this.submitSuccess = 1;
-				/* 				for (var i = 0; i < imgList.length; i++) {
-									uni.uploadFile({
-										url: UPLOAD_FILE_URL,
-										filePath: imgList[i],
-										name: 'uploadFile',
-										formData: {
-											'wechatOpenId': wechatOpenId,
-											'ticketType': this.ticketType
-										},
-										header: {
-											"Content-Type": "multipart/form-data",
-											'X-Token': uni.getStorageSync('token').token
-										},
-										success: (uploadFileRes) => {
-											count++;
-											let uploadFileResData = JSON.parse(uploadFileRes.data);
-											if (count == imgList.length && uploadFileResData.responseCode === '200') {
-												uni.request({
-													url: SUBMIT_ETICKET_URL,
-													method: 'POST',
-													data: {
-														'wechatOpenIdSeller': wechatOpenId,
-														'telephoneNumber': telephoneNumber,
-														'price': this.price,
-														'totalPrice': this.totalPrice,
-														'imgAddress': uploadFileResData.imgAddress,
-														'uploadFlag': 1,
-														'qrCode': this.qrCode,
-														'startDate': this.startDate,
-														'endDate': this.endDate,
-														'orderType': this.radio,
-														'ticketName': this.ticketName,
-														'ticketType': this.ticketType,
-														'orderStatus': this.radio === 'SELL' ? '1' : '0', // 订单状态，刚发布完的券码要么是出售中要么是求购中
-														'sqlMethod': 1, // 发布券码，即插入操作
-													},
-													header: {
-														'Content-Type': 'application/json',
-														'X-Token': uni.getStorageSync('token').token
-													},
-													success: (res) => {
-														let resData = res.data;
-														if (resData.responseCode == '300') {
-				                                            // 券码提交成功
-															
-														}
-													},
-												});
-											}
-										},
-										fail: (res) => {
-											uni.showModal({
-												title: '错误',
-												content: '二维码图片上传失败，请再次点击确认发布！',
-												showCancel: false
-											})
+				for (var i = 0; i < imgList.length; i++) {
+					uni.uploadFile({
+						url: UPLOAD_FILE_URL,
+						filePath: imgList[i],
+						name: 'uploadFile',
+						formData: {
+							'wechatOpenId': wechatOpenId,
+							'ticketType': this.ticketType
+						},
+						header: {
+							"Content-Type": "multipart/form-data",
+							'X-Token': uni.getStorageSync('token').token
+						},
+						success: (uploadFileRes) => {
+							count++;
+							let uploadFileResData = JSON.parse(uploadFileRes.data);
+							if (count == imgList.length && uploadFileResData.responseCode === '200') {
+								uni.request({
+									url: SUBMIT_ETICKET_URL,
+									method: 'POST',
+									data: {
+										'wechatOpenIdSeller': wechatOpenId,
+										'telephoneNumber': telephoneNumber,
+										'price': this.price,
+										'totalPrice': this.totalPrice,
+										'imgAddress': uploadFileResData.imgAddress,
+										'uploadFlag': 1,
+										'qrCode': this.qrCode,
+										'startDate': this.startDate,
+										'endDate': this.endDate,
+										'orderType': this.radio,
+										'ticketName': this.ticketName,
+										'ticketType': this.ticketType,
+										'orderStatus': this.radio === 'SELL' ? '1' : '0', // 订单状态，刚发布完的券码要么是出售中要么是求购中
+										'sqlMethod': 1, // 发布券码，即插入操作
+									},
+									header: {
+										'Content-Type': 'application/json',
+										'X-Token': uni.getStorageSync('token').token
+									},
+									success: (res) => {
+										let resData = res.data;
+										if (resData.responseCode == '300') {
+											// 券码提交成功
+                                            
 										}
-									});
-								} */
+									},
+								});
+							}
+						},
+						fail: (res) => {
+							uni.showModal({
+								title: '错误',
+								content: '二维码图片上传失败，请再次点击确认发布！',
+								showCancel: false
+							})
+						}
+					});
+				}
 			}
 		}
 	}
 </script>
 
 <style scoped>
-	.location1 {
-		position: fixed;
-		bottom: 0;
-	}
-
-	/* 	.location2 {
-		align-items: flex-end;
-	} */
-
 	.img {
 		width: 160upx;
 		height: 160upx;

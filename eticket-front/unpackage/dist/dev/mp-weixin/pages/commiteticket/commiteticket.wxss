@@ -1,12 +1,4 @@
 
-.location1.data-v-b52c66de {
-	position: fixed;
-	bottom: 0;
-}
-
-/* 	.location2 {
-	align-items: flex-end;
-} */
 .img.data-v-b52c66de {
 	width: 160rpx;
 	height: 160rpx;

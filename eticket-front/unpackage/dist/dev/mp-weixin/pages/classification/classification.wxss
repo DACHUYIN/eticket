@@ -1,0 +1,53 @@
+
+.SearchStyle {
+	background-color: #ffffff;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	    -ms-flex-align: center;
+	        align-items: center;
+	border-bottom: 1rpx solid #E7EBED;
+}
+.VerticalNav.nav {
+	white-space: initial;
+}
+.VerticalNav.nav .cu-item {
+	width: 100%;
+	text-align: left;
+	margin: 0;
+	border-bottom: 1rpx solid #E7EBED;
+	height: 44px;
+	position: relative;
+}
+.VerticalNav.nav .cu-item.cur {
+	background-color: #fff;
+}
+.VerticalNav.nav .cu-item.cur::after {
+	content: "";
+	width: 8rpx;
+	height: 30rpx;
+	border-radius: 10rpx 0 0 10rpx;
+	position: absolute;
+	background-color: currentColor;
+	top: 0;
+	right: 0rpx;
+	bottom: 0;
+	margin: auto;
+}
+.VerticalBox {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+}
+.VerticalMain {
+	background-color: #f1f1f1;
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	    -ms-flex: 1;
+	        flex: 1;
+}
+
