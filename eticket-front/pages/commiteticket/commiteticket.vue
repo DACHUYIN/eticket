@@ -90,7 +90,7 @@
 		<view v-if="submitSuccess == '1'">
 			<view class="padding flex flex-direction flex-sub text-center">
 				<view class="flex padding justify-center">
-					<image src="/static/img/submitsuccess.png" class="img"></image>
+					<image src="/static/commonImg/submitsuccess.png" class="img"></image>
 				</view>
 				<text class="text-black text-lg">券码提交成功～</text>
 			</view>

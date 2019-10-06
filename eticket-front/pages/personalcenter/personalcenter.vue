@@ -3,7 +3,7 @@
 		<view v-if="!user" class="user-no-login">
 			<view class="padding flex flex-direction flex-sub text-center">
 				<view class="flex padding justify-center">
-					<image src="/static/img/unlogin.png" class="img"></image>
+					<image src="/static/commonImg/unlogin.png" class="img"></image>
 				</view>
 				<text class="text-black text-lg">您好，只有登录后才可以使用哦～(^_−)☆</text>
 				<button class="cu-btn bg-green margin-tb-sm lg" open-type="getUserInfo" @getuserinfo="wxGetUserInfo"
@@ -11,7 +11,7 @@
 			</view>
 		</view>
 		<view v-if="user">
-			<view class="bg-img flex align-center response" style="background-image: url(/static/img/personalcenter-background.png);height: 470upx;"
+			<view class="bg-img flex align-center response" style="background-image: url(/static/commonImg/personalcenter-background.png);height: 470upx;"
 			 mode="widthFix">
 				<view class="padding user-icon">
 					<view class="cu-avatar round lg margin-bottom" style="width: 150rpx;height: 150rpx;" :style="[{ backgroundImage:'url(' + user.avatarUrl + ')' }]">

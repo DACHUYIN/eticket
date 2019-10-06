@@ -16,6 +16,9 @@ Vue.component('personalcenter',personalcenter)
 import cuCustom from './colorui/components/cu-custom.vue'
 Vue.component('cu-custom',cuCustom)
 
+import card from './components/card/card.vue'
+Vue.component('card',card)
+
 Vue.config.productionTip = false
 
 App.mpType = 'app'

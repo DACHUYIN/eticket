@@ -75,6 +75,9 @@
 			};
 		},
 		methods: {
+			cardSwiper: function(e) {
+				this.cardCur = e.detail.current
+			},
 			tabSelect: function(e) {
 				this.TabCur = e.currentTarget.dataset.id;
 				this.scrollLeft = (e.currentTarget.dataset.id - 1) * 60

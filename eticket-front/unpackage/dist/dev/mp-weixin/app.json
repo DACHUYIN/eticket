@@ -5,7 +5,8 @@
     "pages/personalcenter/personalcenter",
     "pages/message/message",
     "pages/classification/classification",
-    "pages/commiteticket/commiteticket"
+    "pages/commiteticket/commiteticket",
+    "components/card/card"
   ],
   "subPackages": [],
   "window": {
@@ -20,7 +21,7 @@
     "homepage": "/pages/homepage/homepage",
     "message": "/pages/message/message",
     "personalcenter": "/pages/personalcenter/personalcenter",
-    "cu-custom": "/colorui/components/cu-custom"
-  },
-  "sitemapLocation": "sitemap31.json"
+    "cu-custom": "/colorui/components/cu-custom",
+    "card": "/components/card/card"
+  }
 }
