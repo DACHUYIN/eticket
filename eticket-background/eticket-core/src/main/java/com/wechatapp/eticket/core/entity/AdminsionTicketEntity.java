@@ -1,7 +1,6 @@
 package com.wechatapp.eticket.core.entity;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,13 +10,17 @@ import java.math.BigDecimal;
 
 /**
  * 门票类券
- * @author MSI
+ *
+ * @author virgo.zx
  *
  */
 @Data
 @Entity
 @Table(name = "eticket_admissionticket")
 @EqualsAndHashCode(callSuper = false)
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class AdminsionTicketEntity extends BaseEntity {
 
 	// 分库主键
@@ -33,9 +36,9 @@ public class AdminsionTicketEntity extends BaseEntity {
 	@Column(name = "order_id")
 	private Long orderId;
 
-	// 种类编号
+	// 种类名称
 	@Column(name = "ticket_name")
-	private Long ticketName;
+	private String ticketName;
 
 	// 券码的真正价格
 	@Column(name = "price")

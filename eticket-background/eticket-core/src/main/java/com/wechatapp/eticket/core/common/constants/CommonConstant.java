@@ -21,7 +21,7 @@ public class CommonConstant {
 	public static final String IMG_JPEG = "JPEG";
 
 	//  图片上传的服务器地址
-	public static final String IMG_UPLOAD_ADDRESS = "http://52.221.205.25/eticket-img/";
+	public static final String IMG_UPLOAD_ADDRESS = "/eticket-img/";
 
 	// 卖家wechatOpenId
 	public static final String WECHAT_OPENID_SELLER = "Seller:";
@@ -34,4 +34,10 @@ public class CommonConstant {
 
 	// SQL方法：更新
 	public static final int SQL_METHOD_UPDATE = 2;
+
+	// 卖方
+	public static final String STR_SELLER = "卖方";
+
+	// 买方
+	public static final String STR_BUYER = "买方";
 }

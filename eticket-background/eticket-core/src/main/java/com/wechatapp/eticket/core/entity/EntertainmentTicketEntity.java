@@ -37,7 +37,7 @@ public class EntertainmentTicketEntity extends BaseEntity {
 
 	// 种类编号
 	@Column(name = "ticket_name")
-	private Long ticketName;
+	private String ticketName;
 
 	// 券码的真正价格
 	@Column(name = "price")

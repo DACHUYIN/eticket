@@ -1,9 +1,12 @@
 package com.wechatapp.eticket.transaction.redis;
 
+import com.wechatapp.eticket.core.common.constants.CommonConstant;
 import com.wechatapp.eticket.core.common.constants.RedisConstant;
 import com.wechatapp.eticket.core.common.util.DateFormatUtils;
 import com.wechatapp.eticket.core.common.util.JsonUtils;
 import com.wechatapp.eticket.core.dto.EticketInfoDTO;
+import com.wechatapp.eticket.core.enums.OrderTypeEnum;
+import com.wechatapp.eticket.core.enums.TicketTypeEnum;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -30,19 +33,58 @@ public class TransactionRedis {
     private final StringRedisTemplate stringRedisTemplate;
 
     /**
-     * 将电子券信息缓存到redis中去
+     * 将电子券信息保存到发布该券的用户名下
      *
      * @param eticketInfoDTO
      */
     public void saveEticketInfo(EticketInfoDTO eticketInfoDTO) {
-        log.info("把券码的相关信息存到redis中");
+        log.info("用户{}名下开始暂存券码信息", OrderTypeEnum.SELL.toString().equals(eticketInfoDTO.getOrderType().toString()) ?
+                eticketInfoDTO.getWechatOpenIdSeller() : eticketInfoDTO.getWechatOpenIdBuyer());
         Map<String, Object> redisMap = new HashMap<>();
         String mapKey = eticketInfoDTO.getTicketType().toString() + "-" + DateFormatUtils.YYYY_MM_DD_HH_MM_SS.get().format(new Date());
         // 把mapKey存进去，让redis和MySQL可以互相关联起来
         eticketInfoDTO.setRedisMapKey(mapKey);
         redisMap.put(mapKey, JsonUtils.writeValueAsString(eticketInfoDTO));
         stringRedisTemplate.opsForHash().putAll(RedisConstant.REDIS_TRANSACTION + eticketInfoDTO.getWechatOpenIdSeller(), redisMap);
-        log.info("券码的相关信息存储成功");
+        log.info("券码的相关信息存储到用户名下成功");
+    }
+
+    /**
+     * 将电子券信息缓存到买卖市场中去
+     *
+     * @param eticketInfoDTO
+     */
+    public void saveEticketToBussinessMarket(EticketInfoDTO eticketInfoDTO) {
+        log.info("开始把电子券投向{}市场", OrderTypeEnum.SELL.toString().equals(eticketInfoDTO.getOrderType().toString()) ?
+                CommonConstant.STR_SELLER : CommonConstant.STR_BUYER);
+
+
+        log.info("成功在{}市场投入电子券", OrderTypeEnum.SELL.toString().equals(eticketInfoDTO.getOrderType().toString()) ?
+                CommonConstant.STR_SELLER : CommonConstant.STR_BUYER);
+    }
+
+    /**
+     * 将电子券信息保存到券码的分类市场中去
+     *
+     * @param eticketInfoDTO
+     */
+    public void saveEticketToClassficationMarket(EticketInfoDTO eticketInfoDTO) {
+        // 券码种类
+        TicketTypeEnum ticketType = eticketInfoDTO.getTicketType();
+        log.info("开始把电子券投向{}市场", ticketType.toString());
+        // 存到redis中的key
+        String key = getMarketClassification(ticketType);
+        // value = wechatOpenId + redisMapKey构成，商品列表只存主键
+        // 到时候展示的时候根据主键去每个用户缓存下寻找券码的详细信息返回给前台
+        String value = OrderTypeEnum.SELL.toString().equals(eticketInfoDTO.getOrderType().toString()) ?
+                eticketInfoDTO.getWechatOpenIdSeller() : eticketInfoDTO.getWechatOpenIdBuyer() + eticketInfoDTO.getRedisMapKey();
+        stringRedisTemplate.opsForList().rightPush(key, value);
+        log.info("{}市场投放完毕", ticketType.toString());
+    }
+
+    
+    public void getTicketList() {
+
     }
 
     /**
@@ -67,5 +109,28 @@ public class TransactionRedis {
         log.info("开始从Redis获取RocketMQ消息记录");
         String str = stringRedisTemplate.opsForValue().get(transactionId);
         return str != null && StringUtils.isNotEmpty(str);
+    }
+
+    /**
+     * 获取券码的市场分类
+     *
+     * @param ticketType
+     * @return
+     */
+    private String getMarketClassification(TicketTypeEnum ticketType) {
+       switch (ticketType) {
+           case ENTERTAINMENT:
+               return RedisConstant.REDIS_MARKET_ENTERTAINMENT;
+           case ADMINSION:
+               return RedisConstant.REDIS_MARKET_ADMINSION;
+           case FILM:
+               return RedisConstant.REDIS_MARKET_FILM;
+           case CONCERT:
+               return RedisConstant.REDIS_MARKET_CONCERT;
+           case SHOW:
+               return RedisConstant.REDIS_MARKET_SHOW;
+           default:
+               return RedisConstant.REDIS_MARKET_FOOD;
+       }
     }
 }

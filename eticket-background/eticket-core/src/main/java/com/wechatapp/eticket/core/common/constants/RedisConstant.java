@@ -29,6 +29,46 @@ public class RedisConstant {
 	 * 微信OpenId
 	 */
 	public static final String REDIS_WECHATOPENID = "wechatOpenId";
+
+	/**
+	 * 出售市场
+	 */
+	public static final String REDIS_MARKET_SELL = "marketSell:";
+
+	/**
+	 * 求购市场
+	 */
+	public static final String REDIS_MARKET_BUY = "marketBuy:";
+
+	/**
+	 * 餐饮券市场
+	 */
+	public static final String REDIS_MARKET_FOOD = "marketFood:";
+
+	/**
+	 * 影音娱乐券市场
+	 */
+	public static final String REDIS_MARKET_ENTERTAINMENT = "marketEntertainment:";
+
+	/**
+	 * 景点门票市场
+	 */
+	public static final String REDIS_MARKET_ADMINSION = "marketAdminsion:";
+
+	/**
+	 * 电影门票市场
+	 */
+	public static final String REDIS_MARKET_FILM = "marketFilm:";
+
+	/**
+	 * 音乐会门票市场
+	 */
+	public static final String REDIS_MARKET_CONCERT = "marketConcert:";
+
+	/**
+	 * 展览门票市场
+	 */
+	public static final String REDIS_MARKET_SHOW = "marketShow:";
 	
 	/**
 	 * 昵称

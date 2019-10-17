@@ -8,11 +8,12 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
- * 电影、表演、展览票券
+ * 展览会门票
  * 
- * @author MSI
+ * @author virgo.zx
  *
  */
 @Data
@@ -36,7 +37,7 @@ public class ShowTicketEntity extends BaseEntity {
 
 	// 种类编号
 	@Column(name = "ticket_name")
-	private Long ticketName;
+	private String ticketName;
 
 	// 券码的真正价格
 	@Column(name = "price")
@@ -61,4 +62,20 @@ public class ShowTicketEntity extends BaseEntity {
 	// 券码二维码
 	@Column(name = "qr_code")
 	private String qrCode;
+
+	// 展览举办城市名称
+	@Column(name = "city_name")
+	private String cityName;
+
+	// 展览馆名称
+	@Column(name = "show_hall_name")
+	private String showHallName;
+
+	// 展览名称
+	@Column(name = "show_name")
+	private String showName;
+
+	// 展览开始时间
+	@Column(name = "start_date")
+	private Date startDate;
 }

@@ -36,7 +36,7 @@ public class FoodTicketEntity extends BaseEntity {
 	@Column(name = "order_id")
 	private Long orderId;
 
-	// 种类编号
+	// 种类名称
 	@Column(name = "ticket_name")
 	private String ticketName;
 	

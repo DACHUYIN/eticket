@@ -53,7 +53,8 @@ public class TransactionServiceImpl implements ITransactionService {
             log.info("图片初始名称为：{},类型为：{}", fileName, type);
             if (CommonConstant.IMG_PNG.equals(type.toUpperCase()) || CommonConstant.IMG_JPG.equals(type.toUpperCase())
                     || CommonConstant.IMG_JPEG.equals(type.toUpperCase())) {
-                path = "D:\\eticket-img\\" + wechatOpenId + "\\" + ticketType + "\\";
+                // 图片的路径为：eticket-img/该用户的wechatOpenId/券码种类/
+                path = CommonConstant.IMG_UPLOAD_ADDRESS + wechatOpenId + "/" + ticketType + "/";
                 File fileDir = new File(path);
                 if (!fileDir.exists())
                     fileDir.mkdirs();
@@ -115,6 +116,7 @@ public class TransactionServiceImpl implements ITransactionService {
             }
             eticketInfoDTO.setTermValidity(termValidity);
             transactionRedis.saveEticketInfo(eticketInfoDTO);
+            transactionRedis.saveEticketToClassficationMarket(eticketInfoDTO);
             // 发送消息至RocketMQ
             sendInsertEticketInfoMessage(eticketInfoDTO);
             log.info("券码成功提交");
