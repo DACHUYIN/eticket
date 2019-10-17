@@ -40,9 +40,19 @@
     position: relative;
 }
 .eticketInfoCard .thumb .img.data-v-2702e94f {
-      z-index: 10;
+      z-index: 0;
       max-width: 100%;
       max-height: 100%;
+}
+.eticketInfoCard .thumb .tag.data-v-2702e94f {
+      color: #fff;
+      padding: 2px 4px;
+      position: absolute;
+      top: 0;
+      left: 0;
+}
+.eticketInfoCard .thumb .origin.data-v-2702e94f {
+      background-color: #ff4444;
 }
 .eticketInfoCard .detail.data-v-2702e94f {
     padding-left: 15px;
@@ -66,7 +76,6 @@
       font-weight: bold;
 }
 .eticketInfoCard .detail .right.data-v-2702e94f {
-      width: 70px;
-      text-align: right;
+      padding-right: 10rpx;
 }
 

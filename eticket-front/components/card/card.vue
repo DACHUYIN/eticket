@@ -2,21 +2,31 @@
 	<view class="eticketInfoCard">
 		<view class="thumb">
 			<image src="../../static/foodImg/startbucks.PNG" class="img" mode="aspectFit"></image>
+			<view class="tag origin">
+				出售
+			</view>
 		</view>
 		<view class="detail">
 			<view class="mid">
 				<view class="title">
-					星巴克
+					星巴克大杯券
 				</view>
-				<view class="summary">星巴克</div>
+				<view>
+					有效期：
+				</view>
+				<view>
+					2019-10-02
+				</view>
+				<view>
+					2019-10-03
 				</view>
 				<view class="right">
-					<view>20积分</view>
-					<view class="right">下载</view>
+					¥29
 				</view>
+				<button> 购买</button>
 			</view>
 		</view>
-	</view>	
+	</view>
 </template>
 
 <script>
@@ -34,7 +44,7 @@
 
 <style lang="scss" scoped>
 	.eticketInfoCard {
-		
+
 		padding: 15px 15px;
 		border-bottom: 1px dashed #ddd;
 		display: flex;
@@ -47,9 +57,21 @@
 			position: relative;
 
 			.img {
-				z-index: 10;
+				z-index: 0;
 				max-width: 100%;
 				max-height: 100%;
+			}
+
+			.tag {
+				color: #fff;
+				padding: 2px 4px;
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+
+			.origin {
+				background-color: #ff4444;
 			}
 		}
 
@@ -68,8 +90,7 @@
 			}
 
 			.right {
-				width: 70px;
-				text-align: right;
+				padding-right: 10upx;
 			}
 		}
 	}

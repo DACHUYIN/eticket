@@ -7,7 +7,7 @@
 				</block>
 			</cu-custom>
 		</view>
-		<view class="cu-bar bg-white search SearchStyle" style="height: 10%;">
+		<view class="cu-bar bg-white search SearchStyle">
 			<view class="search-form round">
 				<text class="cuIcon-search text-xl"></text>
 				<input class="text-xl" type="text" placeholder="搜索电子票券" confirm-type="search" @input="searchEticket"></input>
@@ -69,8 +69,9 @@
 
 <style>
 	.SearchStyle {
-		background-color: #ffffff;
-		align-items: center;
+		position: fixed;
+		width: 100%;
+		z-index: 1001;
 		border-bottom: 1upx solid #E7EBED;
 	}
     
@@ -78,7 +79,7 @@
 		display: flex;
 		width: 100%;
 		height: 90%;
-
+		margin-top: 50px;
 	}
 	
 	.VerticalNav.nav {

@@ -4838,9 +4838,19 @@ scroll-view.cu-steps .cu-item {
     position: relative;
 }
 .eticketInfoCard .thumb .img.data-v-2702e94f {
-      z-index: 10;
+      z-index: 0;
       max-width: 100%;
       max-height: 100%;
+}
+.eticketInfoCard .thumb .tag.data-v-2702e94f {
+      color: #fff;
+      padding: 2px 4px;
+      position: absolute;
+      top: 0;
+      left: 0;
+}
+.eticketInfoCard .thumb .origin.data-v-2702e94f {
+      background-color: #ff4444;
 }
 .eticketInfoCard .detail.data-v-2702e94f {
     padding-left: 15px;
@@ -4864,17 +4874,14 @@ scroll-view.cu-steps .cu-item {
       font-weight: bold;
 }
 .eticketInfoCard .detail .right.data-v-2702e94f {
-      width: 70px;
-      text-align: right;
+      padding-right: 10rpx;
 }
 
 
 .SearchStyle {
-	background-color: #ffffff;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	    -ms-flex-align: center;
-	        align-items: center;
+	position: fixed;
+	width: 100%;
+	z-index: 1001;
 	border-bottom: 1rpx solid #E7EBED;
 }
 .VerticalBox {
@@ -4884,6 +4891,7 @@ scroll-view.cu-steps .cu-item {
 	display: flex;
 	width: 100%;
 	height: 90%;
+	margin-top: 50px;
 }
 .VerticalNav.nav {
 	white-space: initial;
