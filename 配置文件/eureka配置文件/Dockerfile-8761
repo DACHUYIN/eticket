@@ -1,0 +1,5 @@
+FROM openjdk:8-jre
+RUN mkdir /eticket
+COPY eticket-eurekaserver-1.0.jar /eticket/
+CMD java -jar /eticket/eticket-eurekaserver-1.0.jar --spring.profiles.active=eticket1
+EXPOSE 8761
