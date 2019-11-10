@@ -26,3 +26,5 @@
 
 ## 服务器清单
 ![](https://github.com/DACHUYIN/eticket/blob/master/配置文件/images/server.PNG)
+
+## 小程序一些截图
