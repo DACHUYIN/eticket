@@ -1,9 +1,9 @@
 server:
-  port: 7072
+  port: 7071
 
 spring:
   application:
-    name: eticket-springcloudgateway-service-02
+    name: eticket-springcloudgateway-service-01
   cloud:
     gateway:
       discovery:
