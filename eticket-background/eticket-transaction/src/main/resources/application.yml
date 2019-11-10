@@ -3,25 +3,25 @@ server:
   tomcat:
     uri-encoding: UTF-8
 
-#eureka:
-  #client:
-    #service-url:
-      # 指定eureka server通信地址，注意/eureka/小尾巴不能少
-      #defaultZone: http://34.85.89.243:8761/eureka/
-  #instance:
-    # 是否注册IP到eureka server，如不指定或设为false，那就会注册主机名到eureka server
-    #prefer-ip-address: true
-    # 指定此实例的ip，并且生产环境才打卡
-    # ip-address: 13.251.156.26 
-    #instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
 eureka:
   client:
     service-url:
       # 指定eureka server通信地址，注意/eureka/小尾巴不能少
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://34.85.89.243:8761/eureka/
   instance:
     # 是否注册IP到eureka server，如不指定或设为false，那就会注册主机名到eureka server
     prefer-ip-address: true
+    # 指定此实例的ip，并且生产环境才打卡
+    ip-address: 34.85.89.243
+    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
+#eureka:
+  #client:
+    #service-url:
+      # 指定eureka server通信地址，注意/eureka/小尾巴不能少
+      #defaultZone: http://localhost:8761/eureka/
+  #instance:
+    # 是否注册IP到eureka server，如不指定或设为false，那就会注册主机名到eureka server
+    #prefer-ip-address: true
 
 spring:
   application:

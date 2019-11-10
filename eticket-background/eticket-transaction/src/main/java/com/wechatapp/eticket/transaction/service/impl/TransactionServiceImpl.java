@@ -4,6 +4,7 @@ import com.wechatapp.eticket.core.common.constants.CommonConstant;
 import com.wechatapp.eticket.core.common.constants.PriceConstant;
 import com.wechatapp.eticket.core.common.constants.ResponseMsgConstant;
 import com.wechatapp.eticket.core.common.util.CalculateTimeDiffUtils;
+import com.wechatapp.eticket.core.common.util.DateFormatUtils;
 import com.wechatapp.eticket.core.dto.EticketInfoDTO;
 import com.wechatapp.eticket.core.enums.ServiceChargeCategoryEnum;
 import com.wechatapp.eticket.transaction.context.ServiceChargeContext;
@@ -18,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,8 +55,9 @@ public class TransactionServiceImpl implements ITransactionService {
             log.info("图片初始名称为：{},类型为：{}", fileName, type);
             if (CommonConstant.IMG_PNG.equals(type.toUpperCase()) || CommonConstant.IMG_JPG.equals(type.toUpperCase())
                     || CommonConstant.IMG_JPEG.equals(type.toUpperCase())) {
-                // 图片的路径为：eticket-img/该用户的wechatOpenId/券码种类/
-                path = CommonConstant.IMG_UPLOAD_ADDRESS + wechatOpenId + "/" + ticketType + "/";
+                // 图片的路径为：eticket-img/该用户的wechatOpenId/日期/券码种类/
+                path = CommonConstant.IMG_UPLOAD_ADDRESS + wechatOpenId + "/" +
+                        DateFormatUtils.YYYY_MM_DD.get().format(new Date()) + "/" + ticketType + "/";
                 File fileDir = new File(path);
                 if (!fileDir.exists())
                     fileDir.mkdirs();

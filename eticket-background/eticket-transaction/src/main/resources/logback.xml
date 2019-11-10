@@ -14,8 +14,8 @@
 			<OnMismatch>ACCEPT</OnMismatch>
 		</filter>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<!-- <fileNamePattern>/applog/eticket-transaction/eticket-transaction-%d{yyyy-MM-dd}.%i.log</fileNamePattern> -->
-			<fileNamePattern>D://applog/eticket-transaction/eticket-transaction-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+			<fileNamePattern>/applog/eticket-transaction/eticket-transaction-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+			<!--<fileNamePattern>D://applog/eticket-transaction/eticket-transaction-%d{yyyy-MM-dd}.%i.log</fileNamePattern>-->
 			<MaxHistory>10</MaxHistory>
 			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
 				<maxFileSize>15MB</maxFileSize>
@@ -34,8 +34,8 @@
             <OnMismatch>DENY</OnMismatch>
         </filter>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <!-- <FileNamePattern>/applog/eticket-transaction/eticket-transaction-error-%d{yyyy-MM-dd}.%i.log</FileNamePattern> -->
-            <FileNamePattern>D://applog/eticket-transaction/eticket-transaction-error-%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+			<FileNamePattern>/applog/eticket-transaction/eticket-transaction-error-%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+            <!--<FileNamePattern>D://applog/eticket-transaction/eticket-transaction-error-%d{yyyy-MM-dd}.%i.log</FileNamePattern>-->
             <MaxHistory>10</MaxHistory>
             <TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <MaxFileSize>15MB</MaxFileSize>
@@ -54,8 +54,8 @@
 			<OnMismatch>ACCEPT</OnMismatch>
 		</filter>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<!-- <fileNamePattern>/applog/eticket-transaction/eticket-transaction-platform-%d{yyyy-MM-dd}.%i.log</fileNamePattern> -->
-			<fileNamePattern>D://applog/eticket-transaction/eticket-transaction-platform-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+			<fileNamePattern>/applog/eticket-transaction/eticket-transaction-platform-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+			<!--<fileNamePattern>D://applog/eticket-transaction/eticket-transaction-platform-%d{yyyy-MM-dd}.%i.log</fileNamePattern>-->
 			<MaxHistory>10</MaxHistory>
 			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
 				<maxFileSize>15MB</maxFileSize>
