@@ -28,3 +28,6 @@
 ![](https://github.com/DACHUYIN/eticket/blob/master/配置文件/images/server.PNG)
 
 ## 小程序一些截图
+![](https://github.com/DACHUYIN/eticket/blob/master/配置文件/images/1.PNG)
+![](https://github.com/DACHUYIN/eticket/blob/master/配置文件/images/2.PNG)
+![](https://github.com/DACHUYIN/eticket/blob/master/配置文件/images/3.PNG)
