@@ -7,7 +7,7 @@
 ## 技术选择
 ![](https://github.com/DACHUYIN/eticket/blob/master/配置文件/images/架构.jpg)
 ### 前台
-之前用的腾讯原生的语言，后面做了10%的样子，发现对于我这个90%都是写后台的人来说，学腾讯那套太累了。后面全部删掉重构了，改用了uni-app,uni-app是基于vue的，本来之前也有一点vue的经验，所以上手比较容易。<br>
+* 之前用的腾讯原生的语言，后面做了10%的样子，发现对于我这个90%都是写后台的人来说，学腾讯那套太累了。后面全部删掉重构了，改用了uni-app,uni-app是基于vue的，本来之前也有一点vue的经验，所以上手比较容易。<br>
 ### 后台
 * 整个流程和上面的图片差不多。买了2台阿里云，然后谷歌云，亚马逊云和微软云都用一年免费试用期，自己加上父母的信息，注册了1台谷歌云，3台亚马逊云和2天微软云，用来模拟整个生产环境。<br>
 * 框架的话，用了Springboot，做了eureka，springcloudgateway,member和transaction这4个微服务。<br>
@@ -16,4 +16,13 @@
 缓存的话用了3台亚马逊云搭了redis集群，然后2台阿里云做了双Master双Slave的RocketMQ集群(主从异步)，搭框架的时候想着，整个交易流程，像是发布券码，购买券码之类的数据存储全部通过redis，然后这部分服务都是在transaction微服务上完成的。比如发布券码，redis中存储了数据，然后通过RocketMQ，把数据发送到member微服务，让member微服务去和MySQL进行数据存储。<br>
 * nginx这块，手上网段一样的服务器搭了rocketMQ，网段不一样通过keepalive搭建nginx集群没找到合适的解决方法，就用了一台niginx服务器。前台去请求nginx服务器，nginx配置写了springcloudgateway服务器的地址，然后springcloudgateway和member、transaction都是注册在eureka上的，就可以通过springcloudgateway去调用其它2个微服务，springcloudgateway是双节点，达到了高可用的目的。<br>
 
+### Eureka
+![](https://github.com/DACHUYIN/eticket/blob/master/配置文件/images/eureka.PNG)
+* 没有用2台服务器搭建eureka，就只用了1台服务器双节点的模式，用docker-compose实现了eureka集群。用docker有一个坑，其它微服务注册到eureka上去，因为其它微服务也是用docker跑的，然后它们的ip地址都是docker内部给的一个假地址，需要在yml里面写明这个微服务这台云服务器的公网IP，然后才能发现其它的微服务，还有其它比如在使用docker命令写好IP地址，不过这个我没有试成功，就写死了IP地址。
 
+### Jenkins
+![](https://github.com/DACHUYIN/eticket/blob/master/配置文件/images/jenkins.PNG)
+* 用Jenkins实现了CI/CD。一开始Jekins连的是在服务器上搭的私有Git，后面那台服务器莫名不能用了，可能是因为部署在新加坡的亚马逊云的原因，后面销毁新建的时候，就顺势把代码挪到了GitHub上。通过使用GitHub的webhooks,可以实现push完代码，Jenkins可以自动打包，然后每个微服务都是基于docker的，可以写exec command实现自动部署的功能。
+
+## 服务器清单
+![](https://github.com/DACHUYIN/eticket/blob/master/配置文件/images/server.PNG)
