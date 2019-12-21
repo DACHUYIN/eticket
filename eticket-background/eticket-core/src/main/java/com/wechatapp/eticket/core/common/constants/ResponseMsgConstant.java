@@ -110,4 +110,24 @@ public class ResponseMsgConstant {
 	 * 电子券码有效期异常消息
 	 */
 	public static final String RESPONSEMSG_ERROR_TERMVALIDITY = "券码有效期异常";
+
+	/**
+	 *
+	 */
+	public static final String RESPONSECODE_SUCCESS_IDEMPOTENTTOKEN = "400";
+
+	/**
+	 *
+	 */
+	public static final String RESPONSEMSG_SUCCESS_IDEMPOTENTTOKEN = "幂等性token创建成功";
+
+	/**
+	 *
+	 */
+	public static final String RESPONSECODE_ERROR_IDEMPOTENTTOKEN = "401";
+
+	/**
+	 *
+	 */
+	public static final String RESPONSEMSG_ERROR_IDEMPOTENTTOKEN = "幂等性token创建失败";
 }

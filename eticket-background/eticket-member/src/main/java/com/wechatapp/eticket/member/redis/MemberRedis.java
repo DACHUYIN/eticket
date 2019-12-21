@@ -109,7 +109,7 @@ public class MemberRedis {
 		log.info("存储到Redis中的该用户ID为：" + wchatOpenId);
 		stringRedisTemplate.opsForHash().putAll(RedisConstant.REDIS_MEMBER + wchatOpenId, redisMap);
 		// 设置过期时间，和token的过期时间保持一致，都是2周
-		stringRedisTemplate.expire(wchatOpenId, JwtConstant.EXPIRATION_TIME_IN_SECOND, TimeUnit.SECONDS);
+		stringRedisTemplate.expire(RedisConstant.REDIS_MEMBER + wchatOpenId, JwtConstant.EXPIRATION_TIME_IN_SECOND, TimeUnit.SECONDS);
 	}
 
 	/**

@@ -108,7 +108,36 @@ public class TransactionRedis {
     public Boolean getRocketMQlog(String transactionId) {
         log.info("开始从Redis获取RocketMQ消息记录");
         String str = stringRedisTemplate.opsForValue().get(transactionId);
-        return str != null && StringUtils.isNotEmpty(str);
+        return null != str  && StringUtils.isNotEmpty(str);
+    }
+
+    /**
+     * 把幂等性token暂存到redis中、
+     * @param token
+     */
+    public void saveIdempotentToken(String token) {
+        // 把token暂存到redis，并设置过期时间为60秒
+        stringRedisTemplate.opsForValue().set(token, token, 60, TimeUnit.SECONDS);
+        log.info("幂等性token:{}成功暂存成功", token);
+    }
+
+    /**
+     * 从redis中获取幂等性token，校验是否存在
+     * @param token
+     */
+    public Boolean getIdempotentToken(String token) {
+        log.info("校验redis中是否存在幂等性token");
+        String existToken = stringRedisTemplate.opsForValue().get(token);
+        return null != existToken && StringUtils.isNotEmpty(existToken);
+    }
+
+    /**
+     * 删除redis中的幂等性token
+     * @param token
+     */
+    public Boolean delIdempotentToken(String token) {
+        log.info("删除redis中既存的幂等性token");
+        return stringRedisTemplate.delete(token);
     }
 
     /**

@@ -104,4 +104,9 @@ public class RedisConstant {
 	 * 最近一次的登录时间
 	 */
 	public static final String REDIS_LATESTLOGINTIME = "latestLoginTime";
+
+	/**
+	 * 校验幂等性的token
+	 */
+	public static final String REDIS_IDEMPOTENT_TOKEN = "idempotentToken:";
 }

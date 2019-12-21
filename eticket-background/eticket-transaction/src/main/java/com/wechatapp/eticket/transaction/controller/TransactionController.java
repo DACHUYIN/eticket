@@ -3,7 +3,9 @@ package com.wechatapp.eticket.transaction.controller;
 import com.wechatapp.eticket.core.annotation.CheckLogin;
 import com.wechatapp.eticket.core.common.constants.ResponseMsgConstant;
 import com.wechatapp.eticket.core.dto.EticketInfoDTO;
+import com.wechatapp.eticket.transaction.dto.IdempotentTokenResponseDTO;
 import com.wechatapp.eticket.transaction.dto.TransactionResponseDTO;
+import com.wechatapp.eticket.transaction.service.IIdempotentTokenService;
 import com.wechatapp.eticket.transaction.service.ITransactionService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +26,19 @@ import javax.servlet.http.HttpServletRequest;
 public class TransactionController {
 
 	private final ITransactionService transactionService;
+
+	private final IIdempotentTokenService iIdempotentTokenService;
+
+	/**
+	 * 从服务器端获取IdempotentToken
+	 * @return
+	 */
+	@GetMapping("/getIdempotentToken")
+	@CheckLogin
+	public IdempotentTokenResponseDTO getIdempotentToken() {
+        log.info("从服务器端获取IdempotentToken");
+		return iIdempotentTokenService.createIdempotentToken();
+	}
 
 	/**
 	 * 上传图片至服务器
