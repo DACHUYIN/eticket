@@ -27,10 +27,6 @@
 					  <card></card>
 					  <card></card>
 					  <card></card>
-					  <card></card>
-					  <card></card>
-					  <card></card>
-					  <card></card>
 				  </li>
 				</ul>
 				<ul v-if="tabCur == '1'">

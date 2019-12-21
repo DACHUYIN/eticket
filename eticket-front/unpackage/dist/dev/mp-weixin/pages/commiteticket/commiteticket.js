@@ -365,6 +365,29 @@ var _default = { data: function data() {return { index: 0, picker: ['餐饮券',
       var count = 0;
       var imgList = this.imgList;
       this.submitSuccess = 1;
+      var idempotentToken = '';
+      uni.request({
+        url: GET_IDEMPOTENT_TOKEN,
+        method: 'GET',
+        header: {
+          'Content-Type': 'application/json',
+          'X-Token': uni.getStorageSync('token').token },
+
+        success: function success(res) {
+          var resData = res.data;
+          if (resData.responseCode == '400') {
+            // 券码提交成功
+            idempotentToken = resData.idempotentToken;
+          }
+        },
+        fail: function fail(res) {
+          uni.showModal({
+            title: '错误',
+            content: '系统异常，请再次点击确认发布！',
+            showCancel: false });
+
+        } });
+
       for (var i = 0; i < imgList.length; i++) {
         uni.uploadFile({
           url: _api.UPLOAD_FILE_URL,
@@ -376,12 +399,35 @@ var _default = { data: function data() {return { index: 0, picker: ['餐饮券',
 
           header: {
             "Content-Type": "multipart/form-data",
-            'X-Token': uni.getStorageSync('token').token },
+            'X-Token': uni.getStorageSync('token').token,
+            'idempotent-token': idempotentToken },
 
           success: function success(uploadFileRes) {
             count++;
             var uploadFileResData = JSON.parse(uploadFileRes.data);
             if (count == imgList.length && uploadFileResData.responseCode === '200') {
+              uni.request({
+                url: GET_IDEMPOTENT_TOKEN,
+                method: 'GET',
+                header: {
+                  'Content-Type': 'application/json',
+                  'X-Token': uni.getStorageSync('token').token },
+
+                success: function success(res) {
+                  var resData = res.data;
+                  if (resData.responseCode == '400') {
+                    // 券码提交成功
+                    idempotentToken = resData.idempotentToken;
+                  }
+                },
+                fail: function fail(res) {
+                  uni.showModal({
+                    title: '错误',
+                    content: '系统异常，请再次点击确认发布！',
+                    showCancel: false });
+
+                } });
+
               uni.request({
                 url: _api.SUBMIT_ETICKET_URL,
                 method: 'POST',
@@ -403,7 +449,8 @@ var _default = { data: function data() {return { index: 0, picker: ['餐饮券',
                 },
                 header: {
                   'Content-Type': 'application/json',
-                  'X-Token': uni.getStorageSync('token').token },
+                  'X-Token': uni.getStorageSync('token').token,
+                  'idempotent-token': idempotentToken },
 
                 success: function success(res) {
                   var resData = res.data;

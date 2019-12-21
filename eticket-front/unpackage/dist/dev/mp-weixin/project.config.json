@@ -8,7 +8,7 @@
     "minified": false
   },
   "compileType": "miniprogram",
-  "libVersion": "2.7.0",
+  "libVersion": "2.9.2",
   "appid": "wx0e0c80079face123",
   "projectname": "eticket",
   "condition": {

@@ -241,6 +241,29 @@
 				var count = 0;
 				var imgList = this.imgList;
 				this.submitSuccess = 1;
+				var idempotentToken = '';
+				uni.request({
+					url:GET_IDEMPOTENT_TOKEN,
+					method: 'GET',
+					header: {
+						'Content-Type': 'application/json',
+						'X-Token': uni.getStorageSync('token').token
+					},
+					success: (res) => {
+						let resData = res.data;
+						if (resData.responseCode == '400') {
+							// 券码提交成功
+					        idempotentToken=resData.idempotentToken;
+						}
+					},
+					fail: (res) => {
+						uni.showModal({
+							title: '错误',
+							content: '系统异常，请再次点击确认发布！',
+							showCancel: false
+						})
+					}
+				});
 				for (var i = 0; i < imgList.length; i++) {
 					uni.uploadFile({
 						url: UPLOAD_FILE_URL,
@@ -252,12 +275,35 @@
 						},
 						header: {
 							"Content-Type": "multipart/form-data",
-							'X-Token': uni.getStorageSync('token').token
+							'X-Token': uni.getStorageSync('token').token,
+							'idempotent-token':idempotentToken,
 						},
 						success: (uploadFileRes) => {
 							count++;
 							let uploadFileResData = JSON.parse(uploadFileRes.data);
 							if (count == imgList.length && uploadFileResData.responseCode === '200') {
+								uni.request({
+									url:GET_IDEMPOTENT_TOKEN,
+									method: 'GET',
+									header: {
+										'Content-Type': 'application/json',
+										'X-Token': uni.getStorageSync('token').token
+									},
+									success: (res) => {
+										let resData = res.data;
+										if (resData.responseCode == '400') {
+											// 券码提交成功
+									        idempotentToken=resData.idempotentToken;
+										}
+									},
+									fail: (res) => {
+										uni.showModal({
+											title: '错误',
+											content: '系统异常，请再次点击确认发布！',
+											showCancel: false
+										})
+									}
+								});
 								uni.request({
 									url: SUBMIT_ETICKET_URL,
 									method: 'POST',
@@ -279,7 +325,8 @@
 									},
 									header: {
 										'Content-Type': 'application/json',
-										'X-Token': uni.getStorageSync('token').token
+										'X-Token': uni.getStorageSync('token').token,
+										'idempotent-token':idempotentToken,
 									},
 									success: (res) => {
 										let resData = res.data;

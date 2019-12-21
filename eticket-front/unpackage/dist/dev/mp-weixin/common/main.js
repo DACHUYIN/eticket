@@ -304,15 +304,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
-
-
-
-
 var _card = _interopRequireDefault(__webpack_require__(/*! ../../components/card/card.vue */ 20));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
-//
-//
-//
-//
 //
 //
 //
